@@ -133,9 +133,9 @@ public static int ClimberID = 25;
 
 /* Speed multipliers */
 public static double IntakeMult = 1;
-public static double FeederMult = 1;
-public static double ShootersMult = 0.85;
-public static double RollersMult = 1;
+public static double FeederMult = 0.75;
+public static double ShootersMult = 1;
+public static double RollersMult = 0.40;
 public static double ClimberMult = 1;
 
 

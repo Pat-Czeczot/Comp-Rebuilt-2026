@@ -11,28 +11,27 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.AlignToReefTagRelative;
 //import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.ClimberDown;
+import frc.robot.commands.ClimberUp;
+import frc.robot.commands.FeederIn;
+import frc.robot.commands.FeederOut;
 /* Commands imports */
 import frc.robot.commands.IntakeIn;
 import frc.robot.commands.IntakeOut;
-import frc.robot.commands.FeederIn;
-import frc.robot.commands.FeederOut;
-import frc.robot.commands.ShooterIn;
-import frc.robot.commands.ShooterOut;
 import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOut;
-import frc.robot.commands.ClimberUp;
-import frc.robot.commands.ClimberDown;
+import frc.robot.commands.ShooterIn;
+import frc.robot.commands.ShooterOut;
+import frc.robot.subsystems.Climber;
 /* Subsystems imports */
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Rollers;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Shooter;
 
 
 /**
@@ -75,24 +74,24 @@ public class RobotContainer {
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
             () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(driver.getLeftY()*1, OIConstants.kDriveDeadband), //left stick 
-                -MathUtil.applyDeadband(driver.getLeftX()*1, OIConstants.kDriveDeadband), //left stick 
-                -MathUtil.applyDeadband(driver.getRightX()*1, OIConstants.kDriveDeadband), //right stick
+                 MathUtil.applyDeadband(driver.getLeftY()*1, OIConstants.kDriveDeadband), //left stick 
+                 MathUtil.applyDeadband(driver.getLeftX()*1, OIConstants.kDriveDeadband), //left stick 
+                 MathUtil.applyDeadband(driver.getRightX()*-1, OIConstants.kDriveDeadband), //right stick
                 true),
             m_robotDrive)
             );
 
         driver.povLeft().whileTrue(new RunCommand(
-        () -> m_robotDrive.drive(0, 0.06, 0, false)
-        ));
-        driver.povRight().whileTrue(new RunCommand(
         () -> m_robotDrive.drive(0, -0.06, 0, false)
         ));
+        driver.povRight().whileTrue(new RunCommand(
+        () -> m_robotDrive.drive(0, 0.06, 0, false)
+        ));
         driver.povUp().whileTrue(new RunCommand(
-        () -> m_robotDrive.drive(0.06, 0, 0, false)
+        () -> m_robotDrive.drive(-0.06, 0, 0, false)
         ));
         driver.povDown().whileTrue(new RunCommand(
-        () -> m_robotDrive.drive(-0.06, 0, 0, false)
+        () -> m_robotDrive.drive(0.06, 0, 0, false)
         ));
   }
 
@@ -108,26 +107,49 @@ public class RobotContainer {
   private void configureBindings() {
   /* Controles */
 
-    driver.x().whileTrue(new AlignToReefTagRelative(true, m_robotDrive));
+    //driver.a().whileTrue(new AlignToReefTagRelative(true, m_robotDrive));
     driver.y().whileTrue(new InstantCommand(() -> m_robotDrive.zeroHeading(), m_robotDrive)); //Change this slightly to reset gyro when driving
 
+    //Intake to Hopper:
+    driver.rightTrigger().whileTrue(new IntakeIn(intake));
+    driver.rightTrigger().whileTrue(new FeederIn(feeder));
+    driver.rightTrigger().whileTrue(new RollersOut(rollers));
 
-    operator.leftTrigger().whileTrue(new IntakeIn(intake)); 
-    operator.rightTrigger().whileTrue(new IntakeOut(intake));
+    //Purge from hopper
+    driver.leftTrigger().whileTrue(new IntakeOut(intake)); 
+    driver.leftTrigger().whileTrue(new FeederOut(feeder));
+    driver.leftTrigger().whileTrue(new RollersIn(rollers));
 
-    driver.leftBumper().whileTrue(new FeederIn(feeder)); 
-    driver.rightBumper().whileTrue(new FeederOut(feeder));
+    //Spit from hopper
+    driver.leftBumper().whileTrue(new IntakeOut(intake)); 
+    driver.leftBumper().whileTrue(new FeederOut(feeder));
+    
+    //Climber
+    driver.x().whileTrue(new ClimberUp(climber)); 
+    driver.b().whileTrue(new ClimberDown(climber));
+    
+    //Shooter
+    operator.rightTrigger().whileTrue(new ShooterOut(shooter));
 
-    driver.leftTrigger().whileTrue(new ShooterIn(shooter)); 
-    driver.rightTrigger().whileTrue(new ShooterOut(shooter));
+    //Shooter reverse
+    //operator.rightBumper().whileTrue(new ShooterIn(shooter));
 
-    driver.a().whileTrue(new RollersIn(rollers)); 
-    driver.b().whileTrue(new RollersOut(rollers));
+    //Feed to shooter
+    operator.leftTrigger().whileTrue(new IntakeIn(intake));
+    operator.leftTrigger().whileTrue(new FeederOut(feeder));
+    operator.leftTrigger().whileTrue(new RollersIn(rollers));
+    
+    //Manual roller control
+    operator.povUp().whileTrue(new RollersIn(rollers));
+    operator.povDown().whileTrue(new RollersOut(rollers));
 
-    operator.povUp().whileTrue(new ClimberUp(climber)); 
-    operator.povDown().whileTrue(new ClimberDown(climber));
+    //Feeder Reverse for jam
+    operator.leftBumper().whileTrue(new FeederIn(feeder));
+    operator.leftBumper().whileTrue(new RollersOut(rollers));
 
-
+    //Jam Fix
+    operator.b().whileTrue(new FeederIn(feeder));
+    operator.b().whileTrue(new ShooterIn(shooter));
 
 
 

@@ -15,12 +15,12 @@ public class IntakeIn extends Command {
 }
 @Override
   public void initialize() {
-    intake.setSpeed(-1 * Constants.IntakeMult);
+    intake.setSpeed(1 * Constants.IntakeMult);
     }
 
   @Override
   public void execute() {
-    intake.setSpeed(-1 * Constants.IntakeMult);
+    intake.setSpeed(1 * Constants.IntakeMult);
   }
   @Override
   public void end(boolean interrupted) {
