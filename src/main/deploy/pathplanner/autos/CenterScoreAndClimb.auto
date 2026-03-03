@@ -1,0 +1,79 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CenterStartToTower"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunShooter"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunFeeder"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunRollers"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ClimbUp"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 8.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ClimbDown"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CenterShootToClimb"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MoveToTower"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ClimbUp"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

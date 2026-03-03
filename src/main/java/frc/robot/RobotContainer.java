@@ -1,31 +1,35 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-//import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+/* Commands imports */
 import frc.robot.commands.ClimberDown;
 import frc.robot.commands.ClimberUp;
 import frc.robot.commands.FeederIn;
 import frc.robot.commands.FeederOut;
-/* Commands imports */
 import frc.robot.commands.IntakeIn;
 import frc.robot.commands.IntakeOut;
 import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOut;
 import frc.robot.commands.ShooterIn;
 import frc.robot.commands.ShooterOut;
-import frc.robot.subsystems.Climber;
 /* Subsystems imports */
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Feeder;
@@ -60,6 +64,13 @@ public class RobotContainer {
 
 
   /* Auto */
+private final SendableChooser<Command> chooser;
+  public Pose2d startingPose;
+
+
+
+
+
 
 
   public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -69,6 +80,32 @@ public class RobotContainer {
     m_robotDrive.zeroHeading();
     configureBindings();
 
+    Map<String,Command> namedCommands = new HashMap<String,Command>();
+
+    //CenterScoreAndClimb
+    namedCommands.put("RunShooter", new ShooterOut(shooter).withTimeout(8));
+    namedCommands.put("RunFeeder", new FeederOut(feeder).withTimeout(6));
+    namedCommands.put("RunRollers", new RollersIn(rollers).withTimeout(6));
+    namedCommands.put("ClimbUp", new ClimberUp(climber).withTimeout(1));
+    namedCommands.put("ClimbDown", new ClimberDown(climber).withTimeout(1));
+
+    //RightScoreToClimb
+    namedCommands.put("RunShooter", new ShooterOut(shooter).withTimeout(8));
+    namedCommands.put("RunFeeder", new FeederOut(feeder).withTimeout(6));
+    namedCommands.put("RunRollers", new RollersIn(rollers).withTimeout(6));
+    namedCommands.put("ClimbUp", new ClimberUp(climber).withTimeout(1));
+    namedCommands.put("ClimbDown", new ClimberDown(climber).withTimeout(1));
+
+
+
+
+
+
+
+    NamedCommands.registerCommands(namedCommands);
+    chooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto:", chooser);
+    
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
@@ -163,5 +200,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem);
+
+  
+
   }
 }
