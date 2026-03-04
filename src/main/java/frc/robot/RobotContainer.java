@@ -64,16 +64,11 @@ public class RobotContainer {
 
 
   /* Auto */
-private final SendableChooser<Command> chooser;
+  private final SendableChooser<Command> chooser;
   public Pose2d startingPose;
 
 
-
-
-
-
-
-  public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem(); //not needed
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -199,9 +194,10 @@ private final SendableChooser<Command> chooser;
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
-
-  
-
+    //return Autos.exampleAuto(m_exampleSubsystem); //not needed
+    m_robotDrive.zeroHeading();
+    m_robotDrive.resetOdometry(m_robotDrive.getPose());
+    return chooser.getSelected();
+    
   }
 }
