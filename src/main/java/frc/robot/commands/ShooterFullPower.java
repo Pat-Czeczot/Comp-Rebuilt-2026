@@ -4,23 +4,23 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class ShooterOut extends Command {
+public class ShooterFullPower extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Shooter shooter;
 
 
-  public ShooterOut(Shooter subsystem1) { 
+  public ShooterFullPower(Shooter subsystem1) {
     shooter = subsystem1;
     addRequirements(subsystem1);
 }
 @Override
   public void initialize() {
-    shooter.setSpeed(-1 * Constants.ShootersMult);
+    shooter.setSpeed(-1 * Constants.ShooterFullPowerMult);
     }
 
   @Override
   public void execute() {
-    shooter.setSpeed(-1 * Constants.ShootersMult);
+    shooter.setSpeed(-1 * Constants.ShooterFullPowerMult);
   }
   @Override
   public void end(boolean interrupted) {

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6839431818181816,
-        "y": 4.076227272727273
+        "x": 3.56,
+        "y": 3.087
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6847647883646026,
-        "y": 4.344477345353722
+        "x": 2.505677912811748,
+        "y": 2.947841883941155
       },
       "isLocked": false,
-      "linkedName": "end of start to tower path"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.6839431818181816,
-        "y": 3.303215909090909
+        "x": 1.4365795454545451,
+        "y": 2.5817386363636365
       },
       "prevControl": {
-        "x": 1.6801135242838787,
-        "y": 2.9657809550043077
+        "x": 1.9016040363795104,
+        "y": 2.7441779898699123
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "move to climb"
+      "linkedName": "Right shot to feeder"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 18.0
   },
   "reversed": false,
   "folder": null,

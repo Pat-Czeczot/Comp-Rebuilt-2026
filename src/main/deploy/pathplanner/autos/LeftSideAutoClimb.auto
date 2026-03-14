@@ -1,0 +1,107 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftStartToShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooter"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunShooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunFeeder"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunRollers"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "2ndShootToClimb"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ClimbDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "LeftSideClimb"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ClimbUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DrivetrainSlow"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

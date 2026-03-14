@@ -5,17 +5,17 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Climber extends SubsystemBase {
+public class HighFeeder extends SubsystemBase {
     
-  SparkFlex climber;
+  SparkFlex highfeeder;
 
-  public Climber() {
-    climber = new SparkFlex(Constants.ClimberID, MotorType.kBrushless);
-    climber.setInverted(true);
+  public HighFeeder() {
+    highfeeder = new SparkFlex(Constants.HighFeederID, MotorType.kBrushless);
+    highfeeder.setInverted(true);
     
   }
     public void setSpeed(double speed){
-      climber.set(speed);
+      highfeeder.set(speed);
   }
   @Override
   public void periodic() {

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.817931818181818,
-        "y": 3.323829545454546
+        "x": 0.26160227272727254,
+        "y": 0.21117045454545513
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4270779906809468,
-        "y": 3.3279071275649663
+        "x": 0.02951623912687029,
+        "y": -0.15580286678612737
       },
       "isLocked": false,
-      "linkedName": "Right shoot to climb"
+      "linkedName": "test"
     },
     {
       "anchor": {
-        "x": 1.2098295454545454,
-        "y": 3.323829545454546
+        "x": 1.437,
+        "y": 2.582
       },
       "prevControl": {
-        "x": 1.5204951609965704,
-        "y": 3.318688730233248
+        "x": 1.5856660286712099,
+        "y": 2.7829935618847803
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -3.1798301198642016
+    "rotation": 18.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -3.1798301198642016
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

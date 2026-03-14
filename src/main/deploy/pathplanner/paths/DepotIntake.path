@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.817931818181818,
-        "y": 3.323829545454546
+        "x": 0.32344318181818166,
+        "y": 5.5913295454545455
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4270779906809468,
-        "y": 3.3279071275649663
+        "x": 0.3061953584976186,
+        "y": 6.315378561388879
       },
       "isLocked": false,
-      "linkedName": "Right shoot to climb"
+      "linkedName": "Depot Intake"
     },
     {
       "anchor": {
-        "x": 1.2098295454545454,
-        "y": 3.323829545454546
+        "x": 0.32344318181818166,
+        "y": 6.106670454545455
       },
       "prevControl": {
-        "x": 1.5204951609965704,
-        "y": 3.318688730233248
+        "x": 0.3287879364083291,
+        "y": 5.298081363681125
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Depot Intake 2"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -3.1798301198642016
+    "rotation": -88.02506598911802
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -3.1798301198642016
+    "rotation": -83.2110254255612
   },
   "useDefaultConstraints": true
 }

@@ -1,0 +1,94 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RightStartToShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooter"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunShooter3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunFeeder3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntake3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunRollers3"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RightSideClimb"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ClimbDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RightShootToClimb"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ClimbUp"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

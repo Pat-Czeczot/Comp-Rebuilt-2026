@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.4159659090909087,
+        "y": 5.385193181818182
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 0.8313121103271827,
+        "y": 4.878243595799608
+      },
+      "isLocked": false,
+      "linkedName": "Left start to ball intake"
+    },
+    {
+      "anchor": {
+        "x": 0.5295795454545453,
+        "y": 5.385193181818182
+      },
+      "prevControl": {
+        "x": 0.6301715440046021,
+        "y": 5.156323677891369
+      },
+      "nextControl": {
+        "x": 0.3721609334761386,
+        "y": 5.743356059101279
+      },
+      "isLocked": false,
+      "linkedName": "Intake to shoot again"
+    },
+    {
+      "anchor": {
+        "x": 0.32344318181818166,
+        "y": 5.5913295454545455
+      },
+      "prevControl": {
+        "x": 0.3894591079572295,
+        "y": 5.31000658884596
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Depot Intake"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -77.26044007615616
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -83.2110254255612
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -26.565051177078097
+  },
+  "useDefaultConstraints": true
+}

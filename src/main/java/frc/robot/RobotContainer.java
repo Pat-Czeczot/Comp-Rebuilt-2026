@@ -16,22 +16,21 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.Autos;
 /* Commands imports */
-import frc.robot.commands.ClimberDown;
-import frc.robot.commands.ClimberUp;
+import frc.robot.commands.HighFeederIn;
+import frc.robot.commands.HighFeederOut;
 import frc.robot.commands.FeederIn;
 import frc.robot.commands.FeederOut;
 import frc.robot.commands.IntakeIn;
 import frc.robot.commands.IntakeOut;
 import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOut;
+import frc.robot.commands.ShooterFullPower;
 import frc.robot.commands.ShooterIn;
 import frc.robot.commands.ShooterOut;
 /* Subsystems imports */
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.HighFeeder;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Rollers;
@@ -60,7 +59,7 @@ public class RobotContainer {
   public final Feeder feeder = new Feeder();
   public final Shooter shooter = new Shooter();
   public final Rollers rollers = new Rollers();
-  public final Climber climber = new Climber();
+  public final HighFeeder highfeeder = new HighFeeder();
 
 
   /* Auto */
@@ -77,24 +76,42 @@ public class RobotContainer {
 
     Map<String,Command> namedCommands = new HashMap<String,Command>();
 
-    //CenterScoreAndClimb
-    namedCommands.put("RunShooter", new ShooterOut(shooter).withTimeout(8));
-    namedCommands.put("RunFeeder", new FeederOut(feeder).withTimeout(6));
-    namedCommands.put("RunRollers", new RollersIn(rollers).withTimeout(6));
-    namedCommands.put("ClimbUp", new ClimberUp(climber).withTimeout(1));
-    namedCommands.put("ClimbDown", new ClimberDown(climber).withTimeout(1));
+    //Left Side Auto
+    namedCommands.put("StartShooter", new ShooterOut(shooter).withTimeout(1.5));
+    namedCommands.put("RunShooter", new ShooterOut(shooter).withTimeout(4));
+    namedCommands.put("RunFeeder", new FeederOut(feeder).withTimeout(4));
+    namedCommands.put("RunRollers", new RollersIn(rollers).withTimeout(4));
+    namedCommands.put("RunIntake", new IntakeIn(intake).withTimeout(4));
+    namedCommands.put("RunIntakeFeeder", new FeederIn(feeder).withTimeout(2));
+    namedCommands.put("RunIntakeRollers", new RollersOut(rollers).withTimeout(2));
+    namedCommands.put("RunIntakeIntake", new IntakeIn(intake).withTimeout(2));
+    namedCommands.put("RunFeeder2", new FeederOut(feeder).withTimeout(2.25));
+    namedCommands.put("RunRollers2", new RollersIn(rollers).withTimeout(2.25));
+    namedCommands.put("RunIntake2", new IntakeIn(intake).withTimeout(2.25));
+    namedCommands.put("RunShooter2", new ShooterOut(shooter).withTimeout(2.25));
 
-    //RightScoreToClimb
-    namedCommands.put("RunShooter", new ShooterOut(shooter).withTimeout(8));
-    namedCommands.put("RunFeeder", new FeederOut(feeder).withTimeout(6));
-    namedCommands.put("RunRollers", new RollersIn(rollers).withTimeout(6));
-    namedCommands.put("ClimbUp", new ClimberUp(climber).withTimeout(1));
-    namedCommands.put("ClimbDown", new ClimberDown(climber).withTimeout(1));
+    namedCommands.put("RunFeeder3", new FeederOut(feeder).withTimeout(1));
+    namedCommands.put("RunRollers3", new RollersIn(rollers).withTimeout(1));
+    namedCommands.put("RunIntake3", new IntakeIn(intake).withTimeout(1));
+
+    namedCommands.put("RunShooterLong", new ShooterOut(shooter).withTimeout(8));
+    namedCommands.put("RunFeederLong", new FeederOut(feeder).withTimeout(8));
+    namedCommands.put("RunRollersLong", new RollersIn(rollers).withTimeout(8));
+    namedCommands.put("RunIntakeLong", new IntakeIn(intake).withTimeout(8));
+
+
+    namedCommands.put("DrivetrainSlow", new RunCommand(
+        () -> m_robotDrive.drive(0.01, 0, 0, false)
+        ).withTimeout(3));
 
 
 
 
-
+    //Right Side Auto
+    namedCommands.put("RunShooter3", new ShooterOut(shooter).withTimeout(5));
+    namedCommands.put("RunFeeder3", new FeederOut(feeder).withTimeout(5));
+    namedCommands.put("RunRollers3", new RollersIn(rollers).withTimeout(5));
+    namedCommands.put("RunIntake3", new IntakeIn(intake).withTimeout(5));
 
 
     NamedCommands.registerCommands(namedCommands);
@@ -156,9 +173,9 @@ public class RobotContainer {
     driver.leftBumper().whileTrue(new IntakeOut(intake)); 
     driver.leftBumper().whileTrue(new FeederOut(feeder));
     
-    //Climber
-    driver.x().whileTrue(new ClimberUp(climber)); 
-    driver.b().whileTrue(new ClimberDown(climber));
+    //HighFeeder
+    driver.x().whileTrue(new HighFeederIn(highfeeder)); 
+    driver.b().whileTrue(new HighFeederOut(highfeeder));
     
     //Shooter
     operator.rightTrigger().whileTrue(new ShooterOut(shooter));
@@ -183,6 +200,8 @@ public class RobotContainer {
     operator.b().whileTrue(new FeederIn(feeder));
     operator.b().whileTrue(new ShooterIn(shooter));
 
+    //Shooter Full Power
+    operator.x().whileTrue(new ShooterFullPower(shooter));
 
 
 

@@ -1,0 +1,125 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RightStartToShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooter"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunShooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunFeeder"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunRollers"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RightShotToFeeder"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "FeederToRightShot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooter"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunShooterLong"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunFeederLong"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunRollersLong"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntakeLong"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

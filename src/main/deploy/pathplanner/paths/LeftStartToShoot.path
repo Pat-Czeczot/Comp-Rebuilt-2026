@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6839431818181816,
-        "y": 3.303215909090909
+        "x": 3.5597840909090905,
+        "y": 5.003840909090909
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4343421171228712,
-        "y": 3.289098242748079
+        "x": 2.501483109183838,
+        "y": 5.086652309112145
       },
       "isLocked": false,
-      "linkedName": "move to climb"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.5705681818181816,
-        "y": 3.303215909090909
+        "x": 1.4159659090909087,
+        "y": 5.385193181818182
       },
       "prevControl": {
-        "x": 1.8446572024042565,
-        "y": 3.321085597450736
+        "x": 2.5436279077675747,
+        "y": 5.22158949629409
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left start to ball intake"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -26.565051177078097
   },
   "reversed": false,
   "folder": null,

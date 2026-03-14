@@ -1,0 +1,155 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftStartToShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartShooter"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunShooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunFeeder"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunRollers"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntake"
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "LeftStartToIntakeBallsNew"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntakeIntake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntakeFeeder"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntakeRollers"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "DepotIntake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntake3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunFeeder3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunRollers3"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "DepotIntake2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIntake2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunFeeder2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunRollers2"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
