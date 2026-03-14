@@ -8,19 +8,18 @@ public class FeederIn extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Feeder feeder;
 
-
   public FeederIn(Feeder subsystem1) {
     feeder = subsystem1;
     addRequirements(subsystem1);
 }
 @Override
   public void initialize() {
-    feeder.setSpeed(-1 * Constants.FeederMult);
+    feeder.setSpeed(-1 * Constants.FeedersMult);
     }
 
   @Override
   public void execute() {
-    feeder.setSpeed(-1 * Constants.FeederMult);
+    feeder.setSpeed(-1 * Constants.FeedersMult);
   }
   @Override
   public void end(boolean interrupted) {

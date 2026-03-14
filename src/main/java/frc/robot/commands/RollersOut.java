@@ -8,7 +8,6 @@ public class RollersOut extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Rollers rollers;
 
-
   public RollersOut(Rollers subsystem1) {
     rollers = subsystem1;
     addRequirements(subsystem1);

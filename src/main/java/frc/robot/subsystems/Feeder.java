@@ -7,15 +7,18 @@ import frc.robot.Constants;
 
 public class Feeder extends SubsystemBase {
     
-  SparkFlex feeder;
+  SparkFlex feeder1;
+  SparkFlex feeder2;
 
   public Feeder() {
-    feeder = new SparkFlex(Constants.FeederID, MotorType.kBrushless);
-    feeder.setInverted(true);
-    
+    feeder1 = new SparkFlex(Constants.Feeder1ID, MotorType.kBrushless);
+    feeder1.setInverted(true);
+    feeder2 = new SparkFlex(Constants.Feeder2ID, MotorType.kBrushless);
+    feeder2.setInverted(true);
   }
     public void setSpeed(double speed){
-      feeder.set(speed);
+      feeder1.set(speed);
+      feeder2.set(speed);
   }
   @Override
   public void periodic() {

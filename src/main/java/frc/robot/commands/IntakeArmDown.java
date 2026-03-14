@@ -1,29 +1,29 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.Rollers;
+import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class RollersIn extends Command {
+public class IntakeArmDown extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private Rollers rollers;
+  private IntakeArm intakearm;
 
-  public RollersIn(Rollers subsystem1) {
-    rollers = subsystem1;
+  public IntakeArmDown(IntakeArm subsystem1) {
+    intakearm = subsystem1;
     addRequirements(subsystem1);
 }
 @Override
   public void initialize() {
-    rollers.setSpeed(1 * Constants.RollersMult);
+    intakearm.setSpeed(-1 * Constants.IntakeArmMult);
     }
 
   @Override
   public void execute() {
-    rollers.setSpeed(1 * Constants.RollersMult);
+    intakearm.setSpeed(-1 * Constants.IntakeArmMult);
   }
   @Override
   public void end(boolean interrupted) {
-    rollers.setSpeed(0);
+    intakearm.setSpeed(0);
     
   }
   @Override

@@ -8,7 +8,6 @@ public class IntakeIn extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Intake intake;
 
-
   public IntakeIn(Intake subsystem1) {
     intake = subsystem1;
     addRequirements(subsystem1);

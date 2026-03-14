@@ -16,23 +16,23 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
-/* Commands imports */
-import frc.robot.commands.HighFeederIn;
-import frc.robot.commands.HighFeederOut;
 import frc.robot.commands.FeederIn;
 import frc.robot.commands.FeederOut;
+import frc.robot.commands.HighFeederIn;
+import frc.robot.commands.HighFeederOut;
+import frc.robot.commands.IntakeArmDown;
+import frc.robot.commands.IntakeArmUp;
 import frc.robot.commands.IntakeIn;
-import frc.robot.commands.IntakeOut;
 import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOut;
 import frc.robot.commands.ShooterFullPower;
-import frc.robot.commands.ShooterIn;
 import frc.robot.commands.ShooterOut;
-/* Subsystems imports */
-import frc.robot.subsystems.HighFeeder;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Feeder;
+/* Subsystems imports */
+import frc.robot.subsystems.HighFeeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Shooter;
 
@@ -60,6 +60,7 @@ public class RobotContainer {
   public final Shooter shooter = new Shooter();
   public final Rollers rollers = new Rollers();
   public final HighFeeder highfeeder = new HighFeeder();
+  public final IntakeArm intakearm = new IntakeArm();
 
 
   /* Auto */
@@ -156,54 +157,40 @@ public class RobotContainer {
   private void configureBindings() {
   /* Controles */
 
+    //Limelight
     //driver.a().whileTrue(new AlignToReefTagRelative(true, m_robotDrive));
+
+    //Gyro
     driver.y().whileTrue(new InstantCommand(() -> m_robotDrive.zeroHeading(), m_robotDrive)); //Change this slightly to reset gyro when driving
 
     //Intake to Hopper:
     driver.rightTrigger().whileTrue(new IntakeIn(intake));
-    driver.rightTrigger().whileTrue(new FeederIn(feeder));
-    driver.rightTrigger().whileTrue(new RollersOut(rollers));
-
-    //Purge from hopper
-    driver.leftTrigger().whileTrue(new IntakeOut(intake)); 
-    driver.leftTrigger().whileTrue(new FeederOut(feeder));
-    driver.leftTrigger().whileTrue(new RollersIn(rollers));
-
-    //Spit from hopper
-    driver.leftBumper().whileTrue(new IntakeOut(intake)); 
-    driver.leftBumper().whileTrue(new FeederOut(feeder));
     
-    //HighFeeder
-    driver.x().whileTrue(new HighFeederIn(highfeeder)); 
-    driver.b().whileTrue(new HighFeederOut(highfeeder));
+    //Raise or Lower Intake
+    driver.rightBumper().whileTrue(new IntakeArmUp(intakearm));
+    driver.leftBumper().whileTrue(new IntakeArmDown(intakearm));
     
     //Shooter
     operator.rightTrigger().whileTrue(new ShooterOut(shooter));
 
-    //Shooter reverse
-    //operator.rightBumper().whileTrue(new ShooterIn(shooter));
+    //Shooter Full Power
+    operator.rightBumper().whileTrue(new ShooterFullPower(shooter));
 
     //Feed to shooter
-    operator.leftTrigger().whileTrue(new IntakeIn(intake));
     operator.leftTrigger().whileTrue(new FeederOut(feeder));
     operator.leftTrigger().whileTrue(new RollersIn(rollers));
-    
+    operator.leftTrigger().whileTrue(new HighFeederOut(highfeeder));
+
+    //Shooter Jam Fix
+    operator.leftBumper().whileTrue(new FeederIn(feeder));
+    operator.leftBumper().whileTrue(new HighFeederIn(highfeeder));
+
     //Manual roller control
     operator.povUp().whileTrue(new RollersIn(rollers));
     operator.povDown().whileTrue(new RollersOut(rollers));
 
-    //Feeder Reverse for jam
-    operator.leftBumper().whileTrue(new FeederIn(feeder));
-    operator.leftBumper().whileTrue(new RollersOut(rollers));
-
-    //Jam Fix
-    operator.b().whileTrue(new FeederIn(feeder));
-    operator.b().whileTrue(new ShooterIn(shooter));
-
-    //Shooter Full Power
-    operator.x().whileTrue(new ShooterFullPower(shooter));
-
-
+  
+   
 
   }
   /**

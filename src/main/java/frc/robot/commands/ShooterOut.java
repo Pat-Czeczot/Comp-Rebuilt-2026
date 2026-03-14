@@ -8,7 +8,6 @@ public class ShooterOut extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private Shooter shooter;
 
-
   public ShooterOut(Shooter subsystem1) { 
     shooter = subsystem1;
     addRequirements(subsystem1);
@@ -22,6 +21,7 @@ public class ShooterOut extends Command {
   public void execute() {
     shooter.setSpeed(-1 * Constants.ShootersMult);
   }
+
   @Override
   public void end(boolean interrupted) {
     shooter.setSpeed(0);

@@ -125,19 +125,22 @@ public final class Constants {
 
 /* Motor IDs */
 public static int IntakeID = 20;
-public static int FeederID = 21;
+public static int Feeder1ID = 21;
+public static int Feeder2ID = 27;
 public static int Shooter1ID = 22;
 public static int Shooter2ID = 23;
 public static int RollersID = 24; 
 public static int HighFeederID = 25;
+public static int IntakeArmID = 26;
 
 /* Speed multipliers */
 public static double IntakeMult = 1;
-public static double FeederMult = 0.33;
+public static double FeedersMult = 0.33;
 public static double ShootersMult = 0.515;
 public static double RollersMult = 0.20;
 public static double HighFeederMult = 0.5;
 public static double ShooterFullPowerMult = 0.8;
+public static double IntakeArmMult = 1;
 
 
 
