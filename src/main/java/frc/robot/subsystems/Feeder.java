@@ -12,7 +12,7 @@ public class Feeder extends SubsystemBase {
 
   public Feeder() {
     feeder1 = new SparkFlex(Constants.Feeder1ID, MotorType.kBrushless);
-    feeder1.setInverted(true);
+    feeder1.setInverted(false);
     feeder2 = new SparkFlex(Constants.Feeder2ID, MotorType.kBrushless);
     feeder2.setInverted(true);
   }

@@ -133,14 +133,15 @@ public static int RollersID = 24;
 public static int HighFeederID = 25;
 public static int IntakeArmID = 26;
 
+
 /* Speed multipliers */
 public static double IntakeMult = 1;
-public static double FeedersMult = 0.33;
-public static double ShootersMult = 0.515;
-public static double RollersMult = 0.20;
+public static double FeedersMult = 0.5;
+public static double ShootersMult = 0.43;
+public static double RollersMult = 0.80;
 public static double HighFeederMult = 0.5;
 public static double ShooterFullPowerMult = 0.8;
-public static double IntakeArmMult = 1;
+public static double IntakeArmMult = 0.3;
 
 
 

@@ -1,13 +1,17 @@
 package frc.robot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import limelight.Limelight;
+import limelight.networktables.LimelightSettings.LEDMode;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
+
+/* Command Imports */
 import frc.robot.commands.FeederIn;
 import frc.robot.commands.FeederOut;
 import frc.robot.commands.HighFeederIn;
@@ -23,19 +29,24 @@ import frc.robot.commands.HighFeederOut;
 import frc.robot.commands.IntakeArmDown;
 import frc.robot.commands.IntakeArmUp;
 import frc.robot.commands.IntakeIn;
+import frc.robot.commands.OrbitHub;
 import frc.robot.commands.RollersIn;
 import frc.robot.commands.RollersOut;
 import frc.robot.commands.ShooterFullPower;
 import frc.robot.commands.ShooterOut;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Feeder;
+
+//import frc.robot.commands.Shootertestcmd;
+
 /* Subsystems imports */
 import frc.robot.subsystems.HighFeeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Feeder;
 
+//import frc.robot.subsystems.Shootertest;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -62,13 +73,17 @@ public class RobotContainer {
   public final HighFeeder highfeeder = new HighFeeder();
   public final IntakeArm intakearm = new IntakeArm();
 
+  //public final Shootertest shootertest = new Shootertest();
 
+  /* Limelight */
+  public final Limelight limelight1 = new Limelight("limelight1");
+  ArrayList<Integer> aprilTagTrackList = new ArrayList<Integer>(); //remove if switching to megatag2 pose tracking system
+  
   /* Auto */
   private final SendableChooser<Command> chooser;
-  public Pose2d startingPose;
+  //public Pose2d startingPose;
 
 
-  //public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem(); //not needed
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -129,20 +144,29 @@ public class RobotContainer {
                  MathUtil.applyDeadband(driver.getRightX()*-1, OIConstants.kDriveDeadband), //right stick
                 true),
             m_robotDrive)
-            );
+    );
 
-        driver.povLeft().whileTrue(new RunCommand(
-        () -> m_robotDrive.drive(0, -0.06, 0, false)
-        ));
-        driver.povRight().whileTrue(new RunCommand(
-        () -> m_robotDrive.drive(0, 0.06, 0, false)
-        ));
-        driver.povUp().whileTrue(new RunCommand(
-        () -> m_robotDrive.drive(-0.06, 0, 0, false)
-        ));
-        driver.povDown().whileTrue(new RunCommand(
-        () -> m_robotDrive.drive(0.06, 0, 0, false)
-        ));
+    driver.povLeft().whileTrue(new RunCommand(
+    () -> m_robotDrive.drive(0, -0.06, 0, false)
+    ));
+    driver.povRight().whileTrue(new RunCommand(
+    () -> m_robotDrive.drive(0, 0.06, 0, false)
+    ));
+    driver.povUp().whileTrue(new RunCommand(
+    () -> m_robotDrive.drive(-0.06, 0, 0, false)
+    ));
+    driver.povDown().whileTrue(new RunCommand(
+    () -> m_robotDrive.drive(0.06, 0, 0, false)
+    ));
+    //Configure limelight
+    aprilTagTrackList.add(10); //red side center
+    aprilTagTrackList.add(26); //blue side cente
+    limelight1.getSettings()
+     .withLimelightLEDMode(LEDMode.PipelineControl)
+     //.withCameraOffset(Pose3d.kZero) //change offset to where camera is finally located on robot
+     .withAprilTagIdFilter(aprilTagTrackList)
+     .save();
+      //withRobotOrientation?
   }
 
   /**
@@ -161,7 +185,7 @@ public class RobotContainer {
     //driver.a().whileTrue(new AlignToReefTagRelative(true, m_robotDrive));
 
     //Gyro
-    driver.y().whileTrue(new InstantCommand(() -> m_robotDrive.zeroHeading(), m_robotDrive)); //Change this slightly to reset gyro when driving
+    //driver.y().whileTrue(new InstantCommand(() -> m_robotDrive.zeroHeading(), m_robotDrive)); //Change this slightly to reset gyro when driving
 
     //Intake to Hopper:
     driver.rightTrigger().whileTrue(new IntakeIn(intake));
@@ -169,6 +193,9 @@ public class RobotContainer {
     //Raise or Lower Intake
     driver.rightBumper().whileTrue(new IntakeArmUp(intakearm));
     driver.leftBumper().whileTrue(new IntakeArmDown(intakearm));
+
+    //Orbit Hub (uses driver buttons a and b internally)
+    driver.back().whileTrue(new OrbitHub(m_robotDrive, limelight1, driver));
     
     //Shooter
     operator.rightTrigger().whileTrue(new ShooterOut(shooter));
@@ -189,8 +216,9 @@ public class RobotContainer {
     operator.povUp().whileTrue(new RollersIn(rollers));
     operator.povDown().whileTrue(new RollersOut(rollers));
 
-  
-   
+  //shooter test
+   //operator.rightTrigger().whileTrue(new Shootertestcmd(shootertest));
+
 
   }
   /**
@@ -199,10 +227,10 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    //return Autos.exampleAuto(m_exampleSubsystem); //not needed
+    //Reset to known values before scheduling auto command (not necessary?)
     m_robotDrive.zeroHeading();
-    m_robotDrive.resetOdometry(m_robotDrive.getPose());
+    m_robotDrive.resetOdometry(m_robotDrive.getPose()); //Zero pose?
+    //Loads Command from Auto Chooser
     return chooser.getSelected();
     
   }

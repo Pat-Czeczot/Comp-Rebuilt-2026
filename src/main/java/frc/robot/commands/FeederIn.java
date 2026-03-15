@@ -14,12 +14,12 @@ public class FeederIn extends Command {
 }
 @Override
   public void initialize() {
-    feeder.setSpeed(-1 * Constants.FeedersMult);
+    feeder.setSpeed(1 * Constants.FeedersMult);
     }
 
   @Override
   public void execute() {
-    feeder.setSpeed(-1 * Constants.FeedersMult);
+    feeder.setSpeed(1 * Constants.FeedersMult);
   }
   @Override
   public void end(boolean interrupted) {
